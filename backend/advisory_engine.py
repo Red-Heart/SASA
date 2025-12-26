@@ -1,6 +1,7 @@
 from fuzzy_logic import FuzzyIrrigationSystem
 from ann_inference import ANNSuitability
 from yield_estimation import estimate_yield_potential
+from planting_context import evaluate_planting_context
 
 class AdvisoryEngine:
     def __init__(self):
@@ -30,13 +31,17 @@ class AdvisoryEngine:
                 suitability,
                 irrigation_level
             ))
-
+            planting_context = evaluate_planting_context(
+                crop=crop,
+                suitability_score=suitability
+            )
             return {
                 "mode": "crop_specific",
                 "crop": crop,
                 "suitability_score": round(suitability, 3),
                 "irrigation": irrigation,
-                "yield_potential": yield_potential
+                "yield_potential": yield_potential,
+                "planting_context": planting_context
             }
 
         # Crop not specified
@@ -49,11 +54,15 @@ class AdvisoryEngine:
                 prob_f,
                 irrigation_level
             ))
-
+            planting_context = evaluate_planting_context(
+                crop=crop_name,
+                suitability_score=prob_f
+            )
             results.append({
                 "crop": crop_name,
                 "suitability_score": round(prob_f, 3),
-                "yield_potential": yield_potential
+                "yield_potential": yield_potential,
+                "planting_context": planting_context
             })
 
         # Sort by yield potential
