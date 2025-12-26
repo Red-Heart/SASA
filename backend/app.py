@@ -2,15 +2,25 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Optional
-
+from fastapi.middleware.cors import CORSMiddleware
 from core.advisory_engine import AdvisoryEngine
 from core.services import get_environmental_factors
+
 
 
 app = FastAPI(
     title="Smart Agriculture Advisory System",
     description="ANN + Fuzzy Logic based agriculture advisory",
     version="1.0"
+)
+
+# accept cors
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 engine = AdvisoryEngine()
