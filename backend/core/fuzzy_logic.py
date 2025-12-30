@@ -5,67 +5,141 @@ from skfuzzy import control as ctrl
 
 class FuzzyIrrigationSystem:
     def __init__(self):
-        # Inputs
-        self.rainfall = ctrl.Antecedent(np.arange(0, 301, 1), 'rainfall')
-        self.temperature = ctrl.Antecedent(np.arange(0, 51, 1), 'temperature')
-        self.humidity = ctrl.Antecedent(np.arange(0, 101, 1), 'humidity')
-
-        # Output
-        self.irrigation = ctrl.Consequent(np.arange(0, 101, 1), 'irrigation')
-
-        self._define_membership_functions()
-        self._define_rules()
-
-        # Control system (stateless)
-        self.irrigation_ctrl = ctrl.ControlSystem(self.rules)
-
-    def _define_membership_functions(self):
-        self.rainfall['low'] = fuzz.trimf(self.rainfall.universe, [0, 50, 100])
-        self.rainfall['medium'] = fuzz.trimf(self.rainfall.universe, [80, 150, 220])
-        self.rainfall['high'] = fuzz.trimf(self.rainfall.universe, [200, 250, 300])
-
-        self.temperature['low'] = fuzz.trimf(self.temperature.universe, [0, 10, 20])
-        self.temperature['medium'] = fuzz.trimf(self.temperature.universe, [15, 25, 35])
-        self.temperature['high'] = fuzz.trimf(self.temperature.universe, [30, 40, 50])
-
-        self.humidity['low'] = fuzz.trimf(self.humidity.universe, [0, 30, 50])
-        self.humidity['medium'] = fuzz.trimf(self.humidity.universe, [40, 60, 80])
-        self.humidity['high'] = fuzz.trimf(self.humidity.universe, [70, 85, 100])
-
-        self.irrigation['low'] = fuzz.trimf(self.irrigation.universe, [0, 20, 40])
-        self.irrigation['medium'] = fuzz.trimf(self.irrigation.universe, [30, 50, 70])
-        self.irrigation['high'] = fuzz.trimf(self.irrigation.universe, [60, 80, 100])
-
-    def _define_rules(self):
-        self.rules = [
-            ctrl.Rule(self.rainfall['low'] & self.temperature['high'], self.irrigation['high']),
-            ctrl.Rule(self.rainfall['low'] & self.humidity['low'], self.irrigation['high']),
-            ctrl.Rule(self.rainfall['medium'] & self.temperature['medium'], self.irrigation['medium']),
-            ctrl.Rule(self.rainfall['high'], self.irrigation['low']),
-            ctrl.Rule(self.humidity['high'] & self.rainfall['medium'], self.irrigation['low']),
-            ctrl.Rule(self.temperature['low'] & self.rainfall['medium'], self.irrigation['low']),
-            ctrl.Rule(self.temperature['medium'] & self.humidity['medium'], self.irrigation['medium']),
-        ]
+        """Initialize irrigation advisory system using Fuzzy Logic"""
+        self._setup_fuzzy_system()
+    
+    def _setup_fuzzy_system(self):
+        """Setup fuzzy control system with variables and rules"""
+        # Define input/output ranges (universe of discourse)
+        self.rainfall_range = np.arange(0, 301, 1)
+        self.temperature_range = np.arange(0, 51, 1)
+        self.humidity_range = np.arange(0, 101, 1)
+        self.irrigation_range = np.arange(0, 101, 1)
+        
+        # Define membership functions for rainfall (mm)
+        self.rainfall_low = fuzz.trimf(self.rainfall_range, [0, 30, 60])
+        self.rainfall_medium = fuzz.trimf(self.rainfall_range, [40, 90, 140])
+        self.rainfall_high = fuzz.trimf(self.rainfall_range, [100, 200, 300])
+        
+        # Define membership functions for temperature (°C)
+        self.temperature_low = fuzz.trimf(self.temperature_range, [0, 20, 28])
+        self.temperature_medium = fuzz.trimf(self.temperature_range, [26, 32, 38])
+        self.temperature_high = fuzz.trimf(self.temperature_range, [35, 42, 50])
+        
+        # Define membership functions for humidity (%)
+        self.humidity_low = fuzz.trimf(self.humidity_range, [0, 25, 50])
+        self.humidity_medium = fuzz.trimf(self.humidity_range, [40, 60, 80])
+        self.humidity_high = fuzz.trimf(self.humidity_range, [70, 85, 100])
+        
+        # Define membership functions for irrigation output
+        self.irrigation_low = fuzz.trimf(self.irrigation_range, [0, 20, 40])
+        self.irrigation_medium = fuzz.trimf(self.irrigation_range, [30, 50, 70])
+        self.irrigation_high = fuzz.trimf(self.irrigation_range, [60, 80, 100])
 
     def get_irrigation_advice(self, rainfall, temperature, humidity):
-        # Create a fresh simulator per call
-        simulator = ctrl.ControlSystemSimulation(self.irrigation_ctrl)
-
-        simulator.input['rainfall'] = rainfall
-        simulator.input['temperature'] = temperature
-        simulator.input['humidity'] = humidity
-
-        simulator.compute()
-
-        score = simulator.output['irrigation']
-
+        """
+        Calculate irrigation advice using fuzzy logic with direct computation
+        
+        Args:
+            rainfall: Amount of rainfall in mm (0-300)
+            temperature: Temperature in Celsius (0-50)
+            humidity: Humidity percentage (0-100)
+            
+        Returns:
+            Dict with inputs, irrigation_score, and irrigation_level
+        """
+        try:
+            # Ensure inputs are within valid ranges
+            rainfall = max(0, min(300, float(rainfall)))
+            temperature = max(0, min(50, float(temperature)))
+            humidity = max(0, min(100, float(humidity)))
+            
+            # Compute fuzzy membership values for inputs
+            rainfall_low_val = fuzz.interp_membership(self.rainfall_range, self.rainfall_low, rainfall)
+            rainfall_medium_val = fuzz.interp_membership(self.rainfall_range, self.rainfall_medium, rainfall)
+            rainfall_high_val = fuzz.interp_membership(self.rainfall_range, self.rainfall_high, rainfall)
+            
+            temperature_low_val = fuzz.interp_membership(self.temperature_range, self.temperature_low, temperature)
+            temperature_medium_val = fuzz.interp_membership(self.temperature_range, self.temperature_medium, temperature)
+            temperature_high_val = fuzz.interp_membership(self.temperature_range, self.temperature_high, temperature)
+            
+            humidity_low_val = fuzz.interp_membership(self.humidity_range, self.humidity_low, humidity)
+            humidity_medium_val = fuzz.interp_membership(self.humidity_range, self.humidity_medium, humidity)
+            humidity_high_val = fuzz.interp_membership(self.humidity_range, self.humidity_high, humidity)
+            
+            # Apply fuzzy rules and collect output contributions
+            irrigation_activation = np.zeros_like(self.irrigation_range, dtype=float)
+            
+            # HIGH IRRIGATION NEEDED rules
+            activation = np.fmin(rainfall_low_val, humidity_low_val)
+            irrigation_activation = np.fmax(irrigation_activation, 
+                                            np.fmin(activation, self.irrigation_high))
+            
+            activation = np.fmin(rainfall_low_val, temperature_high_val)
+            irrigation_activation = np.fmax(irrigation_activation, 
+                                            np.fmin(activation, self.irrigation_high))
+            
+            activation = np.fmin(temperature_high_val, humidity_low_val)
+            irrigation_activation = np.fmax(irrigation_activation, 
+                                            np.fmin(activation, self.irrigation_high))
+            
+            activation = np.fmin(np.fmin(rainfall_low_val, temperature_high_val), humidity_low_val)
+            irrigation_activation = np.fmax(irrigation_activation, 
+                                            np.fmin(activation, self.irrigation_high))
+            
+            # LOW IRRIGATION NEEDED rules
+            activation = np.fmin(rainfall_high_val, humidity_high_val)
+            irrigation_activation = np.fmax(irrigation_activation, 
+                                            np.fmin(activation, self.irrigation_low))
+            
+            activation = np.fmin(rainfall_high_val, temperature_low_val)
+            irrigation_activation = np.fmax(irrigation_activation, 
+                                            np.fmin(activation, self.irrigation_low))
+            
+            activation = np.fmin(humidity_high_val, temperature_low_val)
+            irrigation_activation = np.fmax(irrigation_activation, 
+                                            np.fmin(activation, self.irrigation_low))
+            
+            # MEDIUM IRRIGATION NEEDED rules
+            activation = np.fmin(rainfall_medium_val, temperature_medium_val)
+            irrigation_activation = np.fmax(irrigation_activation, 
+                                            np.fmin(activation, self.irrigation_medium))
+            
+            activation = np.fmin(rainfall_medium_val, humidity_medium_val)
+            irrigation_activation = np.fmax(irrigation_activation, 
+                                            np.fmin(activation, self.irrigation_medium))
+            
+            activation = np.fmin(temperature_medium_val, humidity_medium_val)
+            irrigation_activation = np.fmax(irrigation_activation, 
+                                            np.fmin(activation, self.irrigation_medium))
+            
+            activation = np.fmin(rainfall_low_val, humidity_medium_val)
+            irrigation_activation = np.fmax(irrigation_activation, 
+                                            np.fmin(activation, self.irrigation_medium))
+            
+            activation = np.fmin(rainfall_medium_val, temperature_low_val)
+            irrigation_activation = np.fmax(irrigation_activation, 
+                                            np.fmin(activation, self.irrigation_medium))
+            
+            # Defuzzify to get crisp output
+            score = fuzz.defuzz(self.irrigation_range, irrigation_activation, 'centroid')
+            
+            # Handle case where defuzzification returns nan
+            if np.isnan(score):
+                score = self._fallback_score(rainfall, temperature, humidity)
+            
+        except Exception as e:
+            print(f"Warning: Fuzzy logic computation failed ({e}), using fallback")
+            score = self._fallback_score(rainfall, temperature, humidity)
+        
+        # Convert score to level
         if score < 40:
             level = "Low"
-        elif score < 70:
+        elif score < 65:
             level = "Medium"
         else:
             level = "High"
-
+        
         return {
             "inputs": {
                 "rainfall": rainfall,
@@ -75,3 +149,28 @@ class FuzzyIrrigationSystem:
             "irrigation_score": round(float(score), 2),
             "irrigation_level": level
         }
+    
+    def _fallback_score(self, rainfall, temperature, humidity):
+        """Fallback heuristic scoring when fuzzy logic fails"""
+        score = 40
+        
+        if rainfall < 60:
+            score += 25
+        elif rainfall < 120:
+            score += 5
+        else:
+            score -= 20
+        
+        if temperature > 35:
+            score += 20
+        elif temperature > 30:
+            score += 10
+        elif temperature < 28:
+            score -= 10
+        
+        if humidity < 50:
+            score += 15
+        elif humidity > 70:
+            score -= 15
+        
+        return max(0, min(100, score))

@@ -1,0 +1,418 @@
+{
+  "timestamp": "2025-12-30T09:10:22.130440",
+  "total_records": 20,
+  "locations": [
+    "location_1",
+    "location_2",
+    "location_3",
+    "location_4"
+  ],
+  "crops": [
+    "rice",
+    "maize",
+    "wheat",
+    "cotton",
+    "chickpea"
+  ],
+  "summary": {
+    "avg_suitability": 0.606023259348453,
+    "avg_irrigation": 53.18803340967397,
+    "avg_temperature": 26.84283473972805,
+    "avg_humidity": 62.57506559902615,
+    "avg_rainfall": 159.66586089448913
+  },
+  "by_crop": {
+    "chickpea": {
+      "suitability_score": {
+        "mean": 0.5195,
+        "min": 0.474,
+        "max": 0.6314
+      },
+      "irrigation_score": {
+        "mean": 39.3425,
+        "min": 31.4756,
+        "max": 49.4636
+      }
+    },
+    "cotton": {
+      "suitability_score": {
+        "mean": 0.7359,
+        "min": 0.5765,
+        "max": 0.8739
+      },
+      "irrigation_score": {
+        "mean": 51.3705,
+        "min": 37.5807,
+        "max": 68.8429
+      }
+    },
+    "maize": {
+      "suitability_score": {
+        "mean": 0.4455,
+        "min": 0.3427,
+        "max": 0.539
+      },
+      "irrigation_score": {
+        "mean": 53.6201,
+        "min": 35.9889,
+        "max": 72.4799
+      }
+    },
+    "rice": {
+      "suitability_score": {
+        "mean": 0.6039,
+        "min": 0.3924,
+        "max": 0.7916
+      },
+      "irrigation_score": {
+        "mean": 70.4519,
+        "min": 64.2147,
+        "max": 74.0368
+      }
+    },
+    "wheat": {
+      "suitability_score": {
+        "mean": 0.7253,
+        "min": 0.4623,
+        "max": 0.9306
+      },
+      "irrigation_score": {
+        "mean": 51.1551,
+        "min": 31.9701,
+        "max": 76.82
+      }
+    }
+  },
+  "by_location": {
+    "location_1": {
+      "suitability_score": 0.6365,
+      "irrigation_score": 60.4468,
+      "temperature": 29.4877,
+      "humidity": 55.9813,
+      "rainfall": 132.4679
+    },
+    "location_2": {
+      "suitability_score": 0.5389,
+      "irrigation_score": 45.1734,
+      "temperature": 25.9588,
+      "humidity": 54.2279,
+      "rainfall": 149.2139
+    },
+    "location_3": {
+      "suitability_score": 0.5347,
+      "irrigation_score": 60.7056,
+      "temperature": 25.2623,
+      "humidity": 70.6926,
+      "rainfall": 194.7139
+    },
+    "location_4": {
+      "suitability_score": 0.7141,
+      "irrigation_score": 46.4264,
+      "temperature": 26.6625,
+      "humidity": 69.3984,
+      "rainfall": 162.2677
+    }
+  },
+  "raw_data": [
+    {
+      "location": "location_1",
+      "crop": "rice",
+      "rainfall": 142.32805620144742,
+      "temperature": 38.02217711887478,
+      "humidity": 32.89000300910915,
+      "ph": 7.224462091547058,
+      "N": 63.292681863075835,
+      "P": 56.793242236196576,
+      "K": 85.83192053907833,
+      "suitability_score": 0.6700344510419929,
+      "irrigation_score": 73.92465198806286,
+      "irrigation_level": "Medium",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_1",
+      "crop": "maize",
+      "rainfall": 249.5775959972331,
+      "temperature": 32.05418778335191,
+      "humidity": 83.49943389491771,
+      "ph": 5.930073906338102,
+      "N": 72.68813295723045,
+      "P": 57.250016368857246,
+      "K": 96.52945011549083,
+      "suitability_score": 0.5390401145173225,
+      "irrigation_score": 59.61553625348835,
+      "irrigation_level": "Low",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_1",
+      "crop": "wheat",
+      "rainfall": 57.570732752929146,
+      "temperature": 16.606451554358326,
+      "humidity": 39.36966454752768,
+      "ph": 6.550409844859211,
+      "N": 49.13672653045143,
+      "P": 50.33571706614796,
+      "K": 54.14452264232338,
+      "suitability_score": 0.8047826372141329,
+      "irrigation_score": 76.81995853304224,
+      "irrigation_level": "Medium",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_1",
+      "crop": "cotton",
+      "rainfall": 67.5859983305566,
+      "temperature": 32.227582828916795,
+      "humidity": 83.26786992760039,
+      "ph": 6.912686282004956,
+      "N": 46.73163741654139,
+      "P": 37.34559069937543,
+      "K": 70.20209989318785,
+      "suitability_score": 0.6762201212211747,
+      "irrigation_score": 42.41003500155837,
+      "irrigation_level": "High",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_1",
+      "crop": "chickpea",
+      "rainfall": 145.27729834271994,
+      "temperature": 28.52822705507959,
+      "humidity": 40.879521321984896,
+      "ph": 6.96504988358277,
+      "N": 90.06534867930233,
+      "P": 61.94321672766057,
+      "K": 75.71903916745948,
+      "suitability_score": 0.4923167328584298,
+      "irrigation_score": 49.46364587524471,
+      "irrigation_level": "Low",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_2",
+      "crop": "rice",
+      "rainfall": 198.24258345820232,
+      "temperature": 27.933301555300957,
+      "humidity": 31.530784720004135,
+      "ph": 6.074294245510422,
+      "N": 97.52917283718267,
+      "P": 50.22409859314166,
+      "K": 74.6775530939918,
+      "suitability_score": 0.561445297084769,
+      "irrigation_score": 64.21473541464113,
+      "irrigation_level": "Low",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_2",
+      "crop": "maize",
+      "rainfall": 165.3454926348037,
+      "temperature": 31.68278565577101,
+      "humidity": 42.75457435024255,
+      "ph": 7.189107436092098,
+      "N": 43.46885909749784,
+      "P": 36.27292996585426,
+      "K": 90.53461762915177,
+      "suitability_score": 0.37985859773326075,
+      "irrigation_score": 35.988873650640535,
+      "irrigation_level": "Low",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_2",
+      "crop": "wheat",
+      "rainfall": 169.34964679515545,
+      "temperature": 31.18302170033242,
+      "humidity": 85.16760544742428,
+      "ph": 6.4044279236969865,
+      "N": 59.4720810069974,
+      "P": 49.56356861283349,
+      "K": 60.488020843092826,
+      "suitability_score": 0.46231125286943886,
+      "irrigation_score": 31.970124416654535,
+      "irrigation_level": "High",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_2",
+      "crop": "cotton",
+      "rainfall": 124.12958661309395,
+      "temperature": 19.45249312703711,
+      "humidity": 63.31180391813994,
+      "ph": 6.112592967542585,
+      "N": 63.05232600824357,
+      "P": 48.28532351945246,
+      "K": 72.18737815172031,
+      "suitability_score": 0.8167472261572828,
+      "irrigation_score": 56.64837323549766,
+      "irrigation_level": "Medium",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_2",
+      "crop": "chickpea",
+      "rainfall": 89.00226722203453,
+      "temperature": 19.54264329607132,
+      "humidity": 48.374821364601644,
+      "ph": 5.8508101314156375,
+      "N": 58.853050162568195,
+      "P": 38.80314535860571,
+      "K": 63.91185729252714,
+      "suitability_score": 0.4739563407473733,
+      "irrigation_score": 37.04488700007799,
+      "irrigation_level": "Low",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_3",
+      "crop": "rice",
+      "rainfall": 171.54074161291337,
+      "temperature": 16.420733558112797,
+      "humidity": 64.22725220624031,
+      "ph": 6.46989084653846,
+      "N": 70.57363611016939,
+      "P": 42.2443060093825,
+      "K": 98.9027195579913,
+      "suitability_score": 0.3923848459816135,
+      "irrigation_score": 69.63135978536491,
+      "irrigation_level": "Low",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_3",
+      "crop": "maize",
+      "rainfall": 186.32230359191973,
+      "temperature": 23.53414860518258,
+      "humidity": 87.10579353441054,
+      "ph": 7.298776390334255,
+      "N": 44.94878544209986,
+      "P": 78.60147406565895,
+      "K": 73.68228433609823,
+      "suitability_score": 0.5205222831049117,
+      "irrigation_score": 72.47993585099691,
+      "irrigation_level": "Low",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_3",
+      "crop": "wheat",
+      "rainfall": 204.24291996107368,
+      "temperature": 29.844046728727566,
+      "humidity": 76.8237439161392,
+      "ph": 7.045261355997752,
+      "N": 81.80462868880619,
+      "P": 51.80942322310293,
+      "K": 90.1221125815984,
+      "suitability_score": 0.7035127380190456,
+      "irrigation_score": 61.098118891448664,
+      "irrigation_level": "Low",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_3",
+      "crop": "cotton",
+      "rainfall": 217.4496297709603,
+      "temperature": 31.930157679524484,
+      "humidity": 74.09793456698091,
+      "ph": 5.813477698738869,
+      "N": 98.04168250682204,
+      "P": 68.82531052859719,
+      "K": 55.953137042952164,
+      "suitability_score": 0.5765367003136417,
+      "irrigation_score": 68.8428613163561,
+      "irrigation_level": "Medium",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_3",
+      "crop": "chickpea",
+      "rainfall": 194.01367927485688,
+      "temperature": 24.58235645329397,
+      "humidity": 51.20825885879066,
+      "ph": 6.719546279017128,
+      "N": 48.273081111583295,
+      "P": 71.18301212981265,
+      "K": 75.2476364048191,
+      "suitability_score": 0.4804769832644015,
+      "irrigation_score": 31.475617639103216,
+      "irrigation_level": "Medium",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_4",
+      "crop": "rice",
+      "rainfall": 171.62421170369743,
+      "temperature": 34.695904517736224,
+      "humidity": 85.31568457381937,
+      "ph": 6.040650008681161,
+      "N": 61.92683886315716,
+      "P": 63.31042954649108,
+      "K": 54.01046262247929,
+      "suitability_score": 0.7916414061651922,
+      "irrigation_score": 74.03677501439489,
+      "irrigation_level": "Medium",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_4",
+      "crop": "maize",
+      "rainfall": 219.81722277401542,
+      "temperature": 29.824371968710768,
+      "humidity": 85.03575304827535,
+      "ph": 6.067550021988307,
+      "N": 82.68314389220842,
+      "P": 74.93423289874629,
+      "K": 61.701047421454675,
+      "suitability_score": 0.3427380443969566,
+      "irrigation_score": 46.39625412432472,
+      "irrigation_level": "Low",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_4",
+      "crop": "wheat",
+      "rainfall": 156.44525380152012,
+      "temperature": 15.33053528984123,
+      "humidity": 30.16156031527376,
+      "ph": 7.472186733061772,
+      "N": 42.96153534340873,
+      "P": 42.35079281323577,
+      "K": 71.60245183739433,
+      "suitability_score": 0.9306188086500515,
+      "irrigation_score": 34.73221350099237,
+      "irrigation_level": "Medium",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_4",
+      "crop": "cotton",
+      "rainfall": 108.74065143029947,
+      "temperature": 16.286504290322256,
+      "humidity": 89.3606893238751,
+      "ph": 7.2695820397020405,
+      "N": 45.28436979188533,
+      "P": 63.507121088365245,
+      "K": 42.95975738980118,
+      "suitability_score": 0.873915920581499,
+      "irrigation_score": 37.58069187118495,
+      "irrigation_level": "High",
+      "timestamp": "2025-12-30T09:09:45.419179"
+    },
+    {
+      "location": "location_4",
+      "crop": "chickpea",
+      "rainfall": 154.71134562034968,
+      "temperature": 37.175064028014916,
+      "humidity": 57.11855913516554,
+      "ph": 6.96247725830584,
+      "N": 94.59144003776231,
+      "P": 43.47558928575013,
+      "K": 49.2629222694878,
+      "suitability_score": 0.631404685046571,
+      "irrigation_score": 39.38601883040417,
+      "irrigation_level": "High",
+      "timestamp": "2025-12-30T09:09:45.420179"
+    }
+  ]
+}
